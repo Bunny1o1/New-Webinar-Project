@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Claude AI — From Zero to Power User in 90 Minutes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #D4A05A;
+    --primary-light: #E8C48A;
+    --primary-dark: #B8862E;
+    --bg-dark: #0D0D0D;
+    --bg-card: #161616;
+    --bg-card-hover: #1C1C1C;
+    --text-main: #F5F0E8;
+    --text-muted: #9A9590;
+    --text-dim: #6B6560;
+    --accent-green: #4ADE80;
+    --accent-red: #EF4444;
+    --accent-blue: #60A5FA;
+    --gradient-gold: linear-gradient(135deg, #D4A05A 0%, #E8C48A 50%, #D4A05A 100%);
+    --gradient-dark: linear-gradient(180deg, #0D0D0D 0%, #1A1410 100%);
+    --shadow-glow: 0 0 40px rgba(212, 160, 90, 0.15);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* ─── UTILITY ─── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .gold-text { background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .serif { font-family: 'Playfair Display', serif; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .animate-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .animate-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── TOP BAR ─── */
+  .top-bar {
+    background: rgba(212, 160, 90, 0.08);
+    border-bottom: 1px solid rgba(212, 160, 90, 0.15);
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--primary-light);
+    letter-spacing: 0.5px;
+  }
+  .top-bar strong { color: var(--primary); }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--primary); }
+  .nav-cta {
+    background: var(--primary);
+    color: var(--bg-dark);
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s;
+    letter-spacing: 0.3px;
+  }
+  .nav-cta:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: var(--shadow-glow); }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 160, 90, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212, 160, 90, 0.1);
+    border: 1px solid rgba(212, 160, 90, 0.2);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 13px;
+    color: var(--primary-light);
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease-out;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); animation: pulse 2s infinite; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease-out 0.1s both;
+  }
+  .hero-sub {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--text-muted);
+    max-width: 620px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    animation: fadeUp 0.6s ease-out 0.2s both;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+    animation: fadeUp 0.6s ease-out 0.3s both;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  .hero-meta-item svg { color: var(--primary); flex-shrink: 0; }
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease-out 0.4s both;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: var(--bg-dark);
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s;
+    letter-spacing: 0.3px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 160, 90, 0.3); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-main);
+    padding: 16px 36px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* ─── COUNTDOWN ─── */
+  .countdown-section {
+    padding: 40px 0;
+  }
+  .countdown-wrapper {
+    background: var(--bg-card);
+    border: 1px solid rgba(212, 160, 90, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    text-align: center;
+  }
+  .countdown-label { font-size: 14px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+  .countdown-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+  }
+  .countdown-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .countdown-text { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+  .countdown-sep { font-size: 36px; color: var(--text-dim); margin-top: -14px; }
+
+  /* ─── SOCIAL PROOF BAR ─── */
+  .social-proof {
+    padding: 20px 0 40px;
+    text-align: center;
+  }
+  .proof-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .proof-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .proof-stat-number { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--primary); }
+  .proof-stat-label { font-size: 13px; color: var(--text-dim); margin-top: 2px; }
+
+  /* ─── PROBLEM SECTION ─── */
+  .problem {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .problem h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.2;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .problem-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: all 0.3s;
+  }
+  .problem-card:hover { border-color: rgba(212, 160, 90, 0.2); transform: translateY(-2px); }
+  .problem-card .icon { font-size: 28px; margin-bottom: 14px; }
+  .problem-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .problem-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── WHAT YOU'LL LEARN ─── */
+  .learn {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .section-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .learn h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .learn-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 17px;
+    margin-bottom: 56px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .learn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .learn-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .learn-card:hover { border-color: rgba(212, 160, 90, 0.25); box-shadow: var(--shadow-glow); }
+  .learn-card .number {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(212, 160, 90, 0.08);
+    position: absolute;
+    top: 16px;
+    right: 20px;
+  }
+  .learn-card .tag {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--primary);
+    background: rgba(212, 160, 90, 0.1);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .learn-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+  .learn-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+  .learn-card .time { font-size: 12px; color: var(--text-dim); margin-top: 14px; font-family: 'JetBrains Mono', monospace; }
+
+  /* ─── BEFORE / AFTER ─── */
+  .transform {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .transform h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .transform-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: start;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .transform-col h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-align: center; }
+  .transform-col.before h3 { color: var(--accent-red); }
+  .transform-col.after h3 { color: var(--accent-green); }
+  .transform-item {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .before .transform-item { color: var(--text-muted); border-left: 3px solid rgba(239, 68, 68, 0.4); }
+  .after .transform-item { color: var(--text-main); border-left: 3px solid rgba(74, 222, 128, 0.5); }
+  .transform-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+    color: var(--primary);
+    font-size: 28px;
+  }
+
+  /* ─── DEMO PREVIEW ─── */
+  .demo {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .demo h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .demo-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+  .demo-terminal {
+    background: #0A0A0A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    max-width: 700px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .demo-terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .demo-terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .demo-terminal-dot:nth-child(1) { background: #EF4444; }
+  .demo-terminal-dot:nth-child(2) { background: #F59E0B; }
+  .demo-terminal-dot:nth-child(3) { background: #22C55E; }
+  .demo-terminal-body {
+    padding: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .demo-terminal-body .prompt { color: var(--primary); }
+  .demo-terminal-body .bad { color: var(--text-dim); }
+  .demo-terminal-body .good { color: var(--accent-green); }
+  .demo-terminal-body .comment { color: var(--text-dim); font-style: italic; }
+  .demo-terminal-body .result { color: var(--text-main); margin-left: 16px; }
+
+  /* ─── PRICING ─── */
+  .pricing {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .pricing h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .pricing-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .pricing-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .pricing-card.featured {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+    transform: scale(1.03);
+  }
+  .pricing-card.featured::before {
+    content: '🔥 MOST POPULAR';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: var(--bg-dark);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 100px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .pricing-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .pricing-card .tagline { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+  .pricing-card .price {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+  }
+  .pricing-card .price .currency { font-size: 24px; vertical-align: super; }
+  .pricing-card .original-price {
+    font-size: 16px;
+    color: var(--text-dim);
+    text-decoration: line-through;
+    margin-top: 4px;
+  }
+  .pricing-card .save-badge {
+    display: inline-block;
+    background: rgba(74, 222, 128, 0.1);
+    color: var(--accent-green);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+  }
+  .pricing-card ul { list-style: none; text-align: left; margin: 20px 0; }
+  .pricing-card ul li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding: 8px 0;
+    padding-left: 24px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .pricing-card ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+    font-weight: 700;
+  }
+  .pricing-card .btn-primary { width: 100%; justify-content: center; margin-top: 8px; }
+
+  /* ─── GUARANTEE ─── */
+  .guarantee {
+    padding: 48px 0;
+  }
+  .guarantee-box {
+    background: rgba(212, 160, 90, 0.05);
+    border: 1px solid rgba(212, 160, 90, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  .guarantee-box .shield { font-size: 40px; margin-bottom: 12px; }
+  .guarantee-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .guarantee-box p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── INSTRUCTOR ─── */
+  .instructor {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .instructor h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .instructor-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .instructor-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--gradient-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--bg-dark);
+    flex-shrink: 0;
+  }
+  .instructor-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .instructor-info .role { font-size: 14px; color: var(--primary); margin-bottom: 12px; }
+  .instructor-info p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .testimonials h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .testimonial-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .testimonial-card .stars { color: var(--primary); font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+  .testimonial-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; font-style: italic; margin-bottom: 16px; }
+  .testimonial-card .author { display: flex; align-items: center; gap: 10px; }
+  .testimonial-card .author-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(212, 160, 90, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600; color: var(--primary);
+  }
+  .testimonial-card .author-name { font-size: 14px; font-weight: 600; }
+  .testimonial-card .author-role { font-size: 12px; color: var(--text-dim); }
+
+  /* ─── FAQ ─── */
+  .faq {
+    padding: 80px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .faq h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .faq-list { max-width: 700px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 0;
+    text-align: left;
+    color: var(--text-main);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.3s;
+  }
+  .faq-question:hover { color: var(--primary); }
+  .faq-question .icon { font-size: 20px; transition: transform 0.3s; flex-shrink: 0; color: var(--primary); }
+  .faq-item.open .faq-question .icon { transform: rotate(45deg); }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding-bottom: 20px;
+  }
+  .faq-answer p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ─── FINAL CTA ─── */
+  .final-cta {
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212, 160, 90, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .final-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .final-cta p {
+    font-size: 17px;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .spots-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--accent-red);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    animation: pulse 2s infinite;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 40px 0;
+    text-align: center;
+  }
+  footer p { font-size: 13px; color: var(--text-dim); }
+  footer a { color: var(--primary); text-decoration: none; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    .hero { padding: 50px 0 40px; }
+    .hero-meta { gap: 16px; }
+    .transform-grid { grid-template-columns: 1fr; }
+    .transform-arrow { transform: rotate(90deg); padding: 10px 0; }
+    .pricing-card.featured { transform: none; }
+    .instructor-card { flex-direction: column; text-align: center; }
+    .countdown-number { font-size: 36px; }
+    .pricing-cards { gap: 16px; }
+    .hero-cta-group { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP URGENCY BAR -->
+<div class="top-bar">
+  ⚡ <strong>Early Bird Pricing:</strong> Only <span id="spots-count">20</span> spots at ₹299 — <span id="spots-remaining" class="mono">17 remaining</span>
+</div>
+
+<!-- NAVIGATION -->
+<div class="container">
+  <nav>
+    <a href="#" class="nav-logo">Claude<span>Lab</span></a>
+    <a href="#pricing" class="nav-cta">Reserve Your Spot →</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Live Workshop · Limited Seats
+    </div>
+    <h1>Master <span class="gold-text">Claude AI</span><br>in 90 Minutes</h1>
+    <p class="hero-sub">Stop copy-pasting basic prompts. Learn to make Claude your smartest colleague — write faster, analyse data, build tools, and automate your workflow. Hands-on. Live. Practical.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span id="webinar-date">Saturday, March 15, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+        11:00 AM IST
+      </div>
+      <div class="hero-meta-item">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        90 Min · Live & Interactive
+      </div>
+    </div>
+    <div class="hero-cta-group">
+      <a href="#pricing" class="btn-primary">Register Now — ₹299 Early Bird <span>→</span></a>
+      <a href="#learn" class="btn-secondary">See What You'll Learn</a>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="container">
+    <div class="countdown-wrapper animate-in">
+      <div class="countdown-label">Workshop starts in</div>
+      <div class="countdown-timer" id="countdown">
+        <div class="countdown-unit"><div class="countdown-number" id="cd-days">15</div><div class="countdown-text">Days</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-number" id="cd-hours">08</div><div class="countdown-text">Hours</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-number" id="cd-mins">42</div><div class="countdown-text">Minutes</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-number" id="cd-secs">19</div><div class="countdown-text">Seconds</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof animate-in">
+  <div class="container">
+    <div class="proof-stats">
+      <div class="proof-stat"><div class="proof-stat-number">500+</div><div class="proof-stat-label">Professionals Trained</div></div>
+      <div class="proof-stat"><div class="proof-stat-number">4.8★</div><div class="proof-stat-label">Average Rating</div></div>
+      <div class="proof-stat"><div class="proof-stat-number">92%</div><div class="proof-stat-label">Say It Changed Their Workflow</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="section-label animate-in">The Problem</div>
+    <h2 class="animate-in">Most People Use AI Like a <span class="gold-text">Fancy Google Search</span></h2>
+    <div class="problem-grid">
+      <div class="problem-card animate-in">
+        <div class="icon">😤</div>
+        <h3>Vague, Unhelpful Responses</h3>
+        <p>You type a question, get a generic answer, and think "AI isn't that useful." The problem isn't AI — it's how you're asking.</p>
+      </div>
+      <div class="problem-card animate-in">
+        <div class="icon">⏰</div>
+        <h3>Hours Lost to Manual Work</h3>
+        <p>Writing emails, summarising docs, cleaning data, creating presentations — tasks Claude can do in seconds, you're spending hours on.</p>
+      </div>
+      <div class="problem-card animate-in">
+        <div class="icon">😵‍💫</div>
+        <h3>Overwhelmed by Features</h3>
+        <p>Projects? Artifacts? Custom instructions? Memory? You know Claude can do more, but you don't know where to start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<section class="learn" id="learn">
+  <div class="container">
+    <div class="section-label animate-in">The Curriculum</div>
+    <h2 class="animate-in">What You'll Master in <span class="gold-text">90 Minutes</span></h2>
+    <p class="learn-subtitle animate-in">Four power-packed modules. All live. All hands-on. Zero fluff.</p>
+    <div class="learn-grid">
+      <div class="learn-card animate-in">
+        <div class="number">01</div>
+        <div class="tag">Module 1</div>
+        <h3>Professional Writing at 10× Speed</h3>
+        <p>Craft perfect emails, LinkedIn posts, reports, and proposals. Learn the prompt structures that turn Claude into your personal writer.</p>
+        <div class="time">⏱ 15 minutes · Live demo</div>
+      </div>
+      <div class="learn-card animate-in">
+        <div class="number">02</div>
+        <div class="tag">Module 2</div>
+        <h3>Data & Document Analysis</h3>
+        <p>Upload PDFs, analyse spreadsheets, extract insights from contracts. Watch Claude process what takes you hours — in under a minute.</p>
+        <div class="time">⏱ 15 minutes · Live demo</div>
+      </div>
+      <div class="learn-card animate-in">
+        <div class="number">03</div>
+        <div class="tag">Module 3</div>
+        <h3>Build Tools Without Code</h3>
+        <p>Create calculators, dashboards, landing pages, and interactive tools using Claude's Artifacts — no coding experience needed.</p>
+        <div class="time">⏱ 10 minutes · Live demo</div>
+      </div>
+      <div class="learn-card animate-in">
+        <div class="number">04</div>
+        <div class="tag">Module 4</div>
+        <h3>Power User Secrets</h3>
+        <p>Projects, Custom Instructions, Memory, and advanced techniques that separate casual users from Claude power users.</p>
+        <div class="time">⏱ 10 minutes · Live demo</div>
+      </div>
+      <div class="learn-card animate-in">
+        <div class="number">05</div>
+        <div class="tag">Interactive</div>
+        <h3>Live Audience Challenge</h3>
+        <p>Bring your real work problem. Solve it live with Claude during the session. Walk out with something you can use immediately.</p>
+        <div class="time">⏱ 10 minutes · You participate</div>
+      </div>
+      <div class="learn-card animate-in">
+        <div class="number">06</div>
+        <div class="tag">Bonus</div>
+        <h3>Resource Pack + Q&A</h3>
+        <p>50+ ready-to-use prompt templates, cheat sheets, workflow guides, and a recording with timestamps. Plus live Q&A with the instructor.</p>
+        <div class="time">⏱ 15 minutes · Open floor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="transform">
+  <div class="container">
+    <div class="section-label animate-in">The Transformation</div>
+    <h2 class="animate-in">Before vs After <span class="gold-text">This Workshop</span></h2>
+    <div class="transform-grid animate-in">
+      <div class="transform-col before">
+        <h3>❌ Before</h3>
+        <div class="transform-item">Type "write me an email" and get generic output</div>
+        <div class="transform-item">Manually summarise 20-page documents</div>
+        <div class="transform-item">Think AI is overhyped and not useful</div>
+        <div class="transform-item">Spend 30 min writing a LinkedIn post</div>
+        <div class="transform-item">No idea what Projects or Artifacts are</div>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div class="transform-col after">
+        <h3>✅ After</h3>
+        <div class="transform-item">Craft prompts that produce publish-ready content first try</div>
+        <div class="transform-item">Upload docs and get instant analysis with key insights</div>
+        <div class="transform-item">Save 5-10 hours per week on real tasks</div>
+        <div class="transform-item">Generate a week's content in 15 minutes</div>
+        <div class="transform-item">Use every Claude feature like a pro</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DEMO PREVIEW -->
+<section class="demo">
+  <div class="container">
+    <div class="section-label animate-in">Sneak Peek</div>
+    <h2 class="animate-in">This Is What You'll See <span class="gold-text">Live</span></h2>
+    <p class="demo-subtitle animate-in">A 30-second taste of the "Wow Demo" that opens the workshop</p>
+    <div class="demo-terminal animate-in">
+      <div class="demo-terminal-bar">
+        <div class="demo-terminal-dot"></div>
+        <div class="demo-terminal-dot"></div>
+        <div class="demo-terminal-dot"></div>
+      </div>
+      <div class="demo-terminal-body">
+        <p class="comment">// ❌ What most people type:</p>
+        <p class="bad"><span class="prompt">→</span> "Write me a marketing email"</p>
+        <p class="result bad" style="opacity:0.5">Generic, boring, sounds like every other AI email...</p>
+        <br>
+        <p class="comment">// ✅ What you'll learn to write:</p>
+        <p class="good"><span class="prompt">→</span> "You are a conversion copywriter for a D2C skincare brand targeting women 25-35. Write a launch email for our new vitamin C serum. Tone: friendly but premium. Include: subject line, preview text, 3 benefit bullets, social proof, CTA. Reference our brand voice: clean, confident, science-backed."</p>
+        <p class="result good">✨ Result: A ready-to-send email that converts.</p>
+        <br>
+        <p class="comment">// Same AI. Wildly different results. That's what this workshop teaches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-label animate-in">Investment</div>
+    <h2 class="animate-in">Choose Your <span class="gold-text">Ticket</span></h2>
+    <p class="pricing-subtitle animate-in">100% money-back guarantee if you don't find it valuable.</p>
+    <div class="pricing-cards">
+      <!-- EARLY BIRD -->
+      <div class="pricing-card featured animate-in">
+        <h3>Early Bird</h3>
+        <div class="tagline">First 20 registrants only</div>
+        <div class="price gold-text"><span class="currency">₹</span>299</div>
+        <div class="original-price">₹499</div>
+        <div class="save-badge">Save 40%</div>
+        <ul>
+          <li>90-minute live workshop</li>
+          <li>50+ prompt template pack</li>
+          <li>Full session recording</li>
+          <li>Prompt structure cheat sheet</li>
+          <li>Certificate of completion</li>
+          <li>WhatsApp community access</li>
+        </ul>
+        <a href="#register" class="btn-primary">Grab Early Bird Seat →</a>
+      </div>
+      <!-- REGULAR -->
+      <div class="pricing-card animate-in">
+        <h3>Regular</h3>
+        <div class="tagline">Standard admission</div>
+        <div class="price"><span class="currency">₹</span>499</div>
+        <div class="original-price" style="visibility:hidden">.</div>
+        <div class="save-badge" style="background:rgba(96,165,250,0.1);color:var(--accent-blue);">Best value</div>
+        <ul>
+          <li>90-minute live workshop</li>
+          <li>50+ prompt template pack</li>
+          <li>Full session recording</li>
+          <li>Prompt structure cheat sheet</li>
+          <li>Certificate of completion</li>
+          <li>WhatsApp community access</li>
+        </ul>
+        <a href="#register" class="btn-primary" style="background:rgba(255,255,255,0.1);color:var(--text-main);">Register at ₹499 →</a>
+      </div>
+      <!-- GROUP -->
+      <div class="pricing-card animate-in">
+        <h3>Team Pack</h3>
+        <div class="tagline">3 seats — bring your team</div>
+        <div class="price"><span class="currency">₹</span>1,199</div>
+        <div class="original-price">₹1,497 (3 × ₹499)</div>
+        <div class="save-badge">Save ₹298</div>
+        <ul>
+          <li>3 seats at one price</li>
+          <li>Everything in Regular</li>
+          <li>Team prompt collaboration</li>
+          <li>Priority Q&A access</li>
+          <li>Bonus: Team workflow guide</li>
+          <li>Bulk invoice available</li>
+        </ul>
+        <a href="#register" class="btn-primary" style="background:rgba(255,255,255,0.1);color:var(--text-main);">Get Team Pack →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee animate-in">
+  <div class="container">
+    <div class="guarantee-box">
+      <div class="shield">🛡️</div>
+      <h3>100% Money-Back Guarantee</h3>
+      <p>Attend the full workshop. If you don't feel it was worth every rupee, just email within 24 hours and get a complete refund. No questions asked. The risk is entirely on us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="instructor animate-in">
+  <div class="container">
+    <div class="section-label">Your Instructor</div>
+    <h2>Learn From Someone Who <span class="gold-text">Uses Claude Daily</span></h2>
+    <div class="instructor-card">
+      <div class="instructor-avatar">YN</div>
+      <div class="instructor-info">
+        <h3>[Your Name]</h3>
+        <div class="role">AI Productivity Coach & Claude Power User</div>
+        <p>Trained 500+ professionals on AI tools. Uses Claude daily for writing, analysis, coding, and business strategy. Built multiple AI-powered workflows that save 10+ hours per week. Passionate about making AI accessible to everyone — not just techies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-label animate-in">What People Say</div>
+    <h2 class="animate-in">From Past <span class="gold-text">Attendees</span></h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card animate-in">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p>"I went from using Claude like ChatGPT to actually building tools with it. The live demos were incredible — I saved 3 hours the very next day at work."</p>
+        <div class="author">
+          <div class="author-avatar">PS</div>
+          <div><div class="author-name">Priya S.</div><div class="author-role">Marketing Manager, Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-in">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p>"Worth every rupee and more. The prompt templates alone are a goldmine. I use them every single day for client proposals and reports."</p>
+        <div class="author">
+          <div class="author-avatar">AK</div>
+          <div><div class="author-name">Amit K.</div><div class="author-role">Freelance Consultant, Mumbai</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-in">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p>"I was sceptical about paying for a webinar, but the hands-on approach made all the difference. I finally understand what Claude can actually do."</p>
+        <div class="author">
+          <div class="author-avatar">RS</div>
+          <div><div class="author-name">Rahul S.</div><div class="author-role">Startup Founder, Delhi</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-label animate-in">Questions</div>
+    <h2 class="animate-in">Frequently <span class="gold-text">Asked</span></h2>
+    <div class="faq-list">
+      <div class="faq-item animate-in">
+        <button class="faq-question">Do I need any technical background?<span class="icon">+</span></button>
+        <div class="faq-answer"><p>Not at all! This workshop is designed for complete beginners. If you can type and use a web browser, you can follow along. We start from zero and build up.</p></div>
+      </div>
+      <div class="faq-item animate-in">
+        <button class="faq-question">Do I need a paid Claude subscription?<span class="icon">+</span></button>
+        <div class="faq-answer"><p>No. Everything we cover works on the free tier. We'll show you what extra features the paid plan unlocks, but the core techniques work for everyone.</p></div>
+      </div>
+      <div class="faq-item animate-in">
+        <button class="faq-question">Will I get a recording?<span class="icon">+</span></button>
+        <div class="faq-answer"><p>Yes! All registered attendees get the full recording with timestamps within 24 hours. You also get the complete resource pack including 50+ prompt templates.</p></div>
+      </div>
+      <div class="faq-item animate-in">
+        <button class="faq-question">What if I can't attend live?<span class="icon">+</span></button>
+        <div class="faq-answer"><p>We strongly recommend attending live for the interactive elements, but you'll have full access to the recording plus all bonus materials even if you can't make it.</p></div>
+      </div>
+      <div class="faq-item animate-in">
+        <button class="faq-question">How is this different from free YouTube tutorials?<span class="icon">+</span></button>
+        <div class="faq-answer"><p>Three words: live, hands-on, structured. Instead of scattered tips, you get a complete system. You solve your real problems live. And you get direct access to ask questions. Plus a curated resource pack worth more than the ticket price.</p></div>
+      </div>
+      <div class="faq-item animate-in">
+        <button class="faq-question">What's the refund policy?<span class="icon">+</span></button>
+        <div class="faq-answer"><p>100% money-back guarantee. Attend the workshop, and if you don't find it valuable, email us within 24 hours for a full refund. No questions asked.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="spots-left animate-in">
+      <span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-red);"></span>
+      Only <span id="final-spots">17</span> early bird spots remaining
+    </div>
+    <h2 class="animate-in">Stop Underusing <span class="gold-text">the Most Powerful AI</span> on the Planet</h2>
+    <p class="animate-in">90 minutes. ₹299. A skill that pays for itself in one day.</p>
+    <a href="#pricing" class="btn-primary animate-in" style="font-size:18px;padding:18px 44px;">Reserve My Seat Now →</a>
+    <p style="font-size:13px;color:var(--text-dim);margin-top:16px;" class="animate-in">🔒 Secure payment · Instant confirmation · 100% money-back guarantee</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 ClaudeLab. All rights reserved. · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a></p>
+    <p style="margin-top:8px;font-size:12px;">This workshop is independently run and is not affiliated with or endorsed by Anthropic.</p>
+  </div>
+</footer>
+
+<script>
+  // ─── COUNTDOWN TIMER ───
+  function startCountdown() {
+    const webinarDate = new Date('2026-03-15T11:00:00+05:30');
+    function update() {
+      const now = new Date();
+      const diff = webinarDate - now;
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent = '00';
+        document.getElementById('cd-secs').textContent = '00';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+    }
+    update();
+    setInterval(update, 1000);
+  }
+  startCountdown();
+
+  // ─── FAQ ACCORDION ───
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ─── SCROLL ANIMATIONS ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+  // ─── SMOOTH SCROLL ───
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
