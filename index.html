@@ -7,22 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #0369A1;
-    --primary-light: #0EA5E9;
-    --primary-dark: #075985;
-    --bg-main: #F0F9FF;
+    --primary: #1E5F8C;
+    --primary-light: #2A7AB5;
+    --primary-dark: #164863;
+    --bg-main: #EDF2F7;
     --bg-card: #FFFFFF;
-    --bg-card-hover: #E0F2FE;
-    --text-main: #0C1D2E;
-    --text-muted: #4B6A88;
-    --text-dim: #7C99B5;
+    --bg-card-hover: #E2E8F0;
+    --text-main: #1A202C;
+    --text-muted: #4A5568;
+    --text-dim: #718096;
     --accent-green: #16A34A;
     --accent-red: #DC2626;
     --accent-blue: #2563EB;
-    --gradient-blue: linear-gradient(135deg, #0369A1 0%, #0EA5E9 50%, #38BDF8 100%);
-    --shadow-glow: 0 4px 24px rgba(3, 105, 161, 0.1);
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(3, 105, 161, 0.06);
-    --border: rgba(3, 105, 161, 0.1);
+    --gradient-blue: linear-gradient(135deg, #164863 0%, #1E5F8C 50%, #2A7AB5 100%);
+    --shadow-glow: 0 4px 24px rgba(22, 72, 99, 0.12);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(22, 72, 99, 0.06);
+    --border: rgba(22, 72, 99, 0.12);
     --radius: 12px;
     --radius-lg: 20px;
   }
@@ -37,6 +37,8 @@
     color: var(--text-main);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
 
   /* ─── UTILITY ─── */
@@ -68,14 +70,14 @@
 
   /* ─── TOP BAR ─── */
   .top-bar {
-    background: linear-gradient(135deg, #0369A1, #0284C7);
+    background: linear-gradient(135deg, #164863, #1E5F8C);
     padding: 10px 0;
     text-align: center;
     font-size: 14px;
     color: #fff;
     letter-spacing: 0.5px;
   }
-  .top-bar strong { color: #BAE6FD; }
+  .top-bar strong { color: #BAD8EB; }
 
   /* ─── NAVIGATION ─── */
   nav {
@@ -119,15 +121,15 @@
     transform: translateX(-50%);
     width: 700px;
     height: 700px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(30, 95, 140, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(3, 105, 161, 0.08);
-    border: 1px solid rgba(3, 105, 161, 0.15);
+    background: rgba(30, 95, 140, 0.08);
+    border: 1px solid rgba(30, 95, 140, 0.15);
     border-radius: 100px;
     padding: 8px 20px;
     font-size: 13px;
@@ -194,7 +196,7 @@
     border: none;
     cursor: pointer;
   }
-  .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(3, 105, 161, 0.25); }
+  .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(30, 95, 140, 0.25); }
   .btn-secondary {
     display: inline-flex;
     align-items: center;
@@ -206,11 +208,11 @@
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
-    border: 1.5px solid rgba(3, 105, 161, 0.3);
+    border: 1.5px solid rgba(30, 95, 140, 0.3);
     transition: all 0.3s;
     cursor: pointer;
   }
-  .btn-secondary:hover { border-color: var(--primary); background: rgba(3, 105, 161, 0.05); }
+  .btn-secondary:hover { border-color: var(--primary); background: rgba(30, 95, 140, 0.05); }
 
   /* ─── COUNTDOWN ─── */
   .countdown-section {
@@ -294,10 +296,10 @@
     transition: all 0.3s;
     box-shadow: var(--shadow-card);
   }
-  .problem-card:hover { border-color: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(3, 105, 161, 0.1); }
+  .problem-card:hover { border-color: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30, 95, 140, 0.1); }
   .problem-card .icon { font-size: 28px; margin-bottom: 14px; }
   .problem-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
-  .problem-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .problem-card p { font-size: 15px; color: var(--text-muted); line-height: 1.65; }
 
   /* ─── WHAT YOU'LL LEARN ─── */
   .learn {
@@ -344,12 +346,12 @@
     transition: all 0.3s;
     box-shadow: var(--shadow-card);
   }
-  .learn-card:hover { border-color: var(--primary-light); box-shadow: 0 8px 32px rgba(3, 105, 161, 0.12); }
+  .learn-card:hover { border-color: var(--primary-light); box-shadow: 0 8px 32px rgba(30, 95, 140, 0.12); }
   .learn-card .number {
     font-family: 'Playfair Display', serif;
     font-size: 48px;
     font-weight: 800;
-    color: rgba(3, 105, 161, 0.07);
+    color: rgba(30, 95, 140, 0.07);
     position: absolute;
     top: 16px;
     right: 20px;
@@ -360,14 +362,14 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--primary);
-    background: rgba(3, 105, 161, 0.08);
+    background: rgba(30, 95, 140, 0.08);
     padding: 4px 12px;
     border-radius: 100px;
     margin-bottom: 14px;
     font-weight: 600;
   }
   .learn-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
-  .learn-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+  .learn-card p { font-size: 15px; color: var(--text-muted); line-height: 1.65; }
   .learn-card .time { font-size: 12px; color: var(--text-dim); margin-top: 14px; font-family: 'JetBrains Mono', monospace; }
 
   /* ─── BEFORE / AFTER ─── */
@@ -460,7 +462,7 @@
     line-height: 1.8;
     color: #E2E8F0;
   }
-  .demo-terminal-body .prompt { color: #38BDF8; }
+  .demo-terminal-body .prompt { color: #3D8EC4; }
   .demo-terminal-body .bad { color: #64748B; }
   .demo-terminal-body .good { color: #4ADE80; }
   .demo-terminal-body .comment { color: #64748B; font-style: italic; }
@@ -503,7 +505,7 @@
   }
   .pricing-card.featured {
     border-color: var(--primary);
-    box-shadow: 0 8px 40px rgba(3, 105, 161, 0.15);
+    box-shadow: 0 8px 40px rgba(30, 95, 140, 0.15);
     transform: scale(1.03);
   }
   .pricing-card.featured::before {
@@ -570,8 +572,8 @@
     padding: 48px 0;
   }
   .guarantee-box {
-    background: rgba(3, 105, 161, 0.04);
-    border: 1px solid rgba(3, 105, 161, 0.12);
+    background: rgba(30, 95, 140, 0.04);
+    border: 1px solid rgba(30, 95, 140, 0.12);
     border-radius: var(--radius-lg);
     padding: 36px;
     text-align: center;
@@ -649,11 +651,11 @@
     box-shadow: var(--shadow-card);
   }
   .testimonial-card .stars { color: #F59E0B; font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
-  .testimonial-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; font-style: italic; margin-bottom: 16px; }
+  .testimonial-card p { font-size: 15px; color: var(--text-muted); line-height: 1.65; font-style: italic; margin-bottom: 16px; }
   .testimonial-card .author { display: flex; align-items: center; gap: 10px; }
   .testimonial-card .author-avatar {
     width: 36px; height: 36px; border-radius: 50%;
-    background: rgba(3, 105, 161, 0.1);
+    background: rgba(30, 95, 140, 0.1);
     display: flex; align-items: center; justify-content: center;
     font-size: 14px; font-weight: 600; color: var(--primary);
   }
@@ -705,14 +707,14 @@
     max-height: 300px;
     padding-bottom: 20px;
   }
-  .faq-answer p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .faq-answer p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
 
   /* ─── FINAL CTA ─── */
   .final-cta {
     padding: 80px 0;
     text-align: center;
     position: relative;
-    background: linear-gradient(180deg, var(--bg-main) 0%, #E0F2FE 100%);
+    background: linear-gradient(180deg, var(--bg-main) 0%, #DDE5ED 100%);
   }
   .final-cta::before {
     content: '';
@@ -722,7 +724,7 @@
     transform: translateX(-50%);
     width: 600px;
     height: 400px;
-    background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(30, 95, 140, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
   .final-cta h2 {
@@ -760,7 +762,7 @@
     border-top: 1px solid var(--border);
     padding: 40px 0;
     text-align: center;
-    background: #E0F2FE;
+    background: #DDE5ED;
   }
   footer p { font-size: 13px; color: var(--text-dim); }
   footer a { color: var(--primary); text-decoration: none; }
