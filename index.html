@@ -7,21 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #D4A05A;
-    --primary-light: #E8C48A;
-    --primary-dark: #B8862E;
-    --bg-dark: #0D0D0D;
-    --bg-card: #161616;
-    --bg-card-hover: #1C1C1C;
-    --text-main: #F5F0E8;
-    --text-muted: #9A9590;
-    --text-dim: #6B6560;
-    --accent-green: #4ADE80;
-    --accent-red: #EF4444;
-    --accent-blue: #60A5FA;
-    --gradient-gold: linear-gradient(135deg, #D4A05A 0%, #E8C48A 50%, #D4A05A 100%);
-    --gradient-dark: linear-gradient(180deg, #0D0D0D 0%, #1A1410 100%);
-    --shadow-glow: 0 0 40px rgba(212, 160, 90, 0.15);
+    --primary: #0369A1;
+    --primary-light: #0EA5E9;
+    --primary-dark: #075985;
+    --bg-main: #F0F9FF;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #E0F2FE;
+    --text-main: #0C1D2E;
+    --text-muted: #4B6A88;
+    --text-dim: #7C99B5;
+    --accent-green: #16A34A;
+    --accent-red: #DC2626;
+    --accent-blue: #2563EB;
+    --gradient-blue: linear-gradient(135deg, #0369A1 0%, #0EA5E9 50%, #38BDF8 100%);
+    --shadow-glow: 0 4px 24px rgba(3, 105, 161, 0.1);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(3, 105, 161, 0.06);
+    --border: rgba(3, 105, 161, 0.1);
     --radius: 12px;
     --radius-lg: 20px;
   }
@@ -32,26 +33,15 @@
   
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--bg-dark);
+    background: var(--bg-main);
     color: var(--text-main);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ─── NOISE TEXTURE OVERLAY ─── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-  }
-
   /* ─── UTILITY ─── */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  .gold-text { background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .blue-text { background: var(--gradient-blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .mono { font-family: 'JetBrains Mono', monospace; }
   .serif { font-family: 'Playfair Display', serif; }
 
@@ -61,10 +51,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-  @keyframes shimmer {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
-  }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
@@ -82,15 +68,14 @@
 
   /* ─── TOP BAR ─── */
   .top-bar {
-    background: rgba(212, 160, 90, 0.08);
-    border-bottom: 1px solid rgba(212, 160, 90, 0.15);
+    background: linear-gradient(135deg, #0369A1, #0284C7);
     padding: 10px 0;
     text-align: center;
     font-size: 14px;
-    color: var(--primary-light);
+    color: #fff;
     letter-spacing: 0.5px;
   }
-  .top-bar strong { color: var(--primary); }
+  .top-bar strong { color: #BAE6FD; }
 
   /* ─── NAVIGATION ─── */
   nav {
@@ -109,7 +94,7 @@
   .nav-logo span { color: var(--primary); }
   .nav-cta {
     background: var(--primary);
-    color: var(--bg-dark);
+    color: #fff;
     padding: 10px 24px;
     border-radius: 100px;
     font-weight: 600;
@@ -132,21 +117,21 @@
     top: -200px;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(212, 160, 90, 0.08) 0%, transparent 70%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(212, 160, 90, 0.1);
-    border: 1px solid rgba(212, 160, 90, 0.2);
+    background: rgba(3, 105, 161, 0.08);
+    border: 1px solid rgba(3, 105, 161, 0.15);
     border-radius: 100px;
     padding: 8px 20px;
     font-size: 13px;
-    color: var(--primary-light);
+    color: var(--primary);
     margin-bottom: 32px;
     animation: fadeUp 0.6s ease-out;
   }
@@ -157,6 +142,7 @@
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 24px;
+    color: var(--text-main);
     animation: fadeUp 0.6s ease-out 0.1s both;
   }
   .hero-sub {
@@ -197,7 +183,7 @@
     align-items: center;
     gap: 8px;
     background: var(--primary);
-    color: var(--bg-dark);
+    color: #fff;
     padding: 16px 36px;
     border-radius: 100px;
     font-weight: 700;
@@ -208,23 +194,23 @@
     border: none;
     cursor: pointer;
   }
-  .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 160, 90, 0.3); }
+  .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(3, 105, 161, 0.25); }
   .btn-secondary {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: transparent;
-    color: var(--text-main);
+    color: var(--primary);
     padding: 16px 36px;
     border-radius: 100px;
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(3, 105, 161, 0.3);
     transition: all 0.3s;
     cursor: pointer;
   }
-  .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-secondary:hover { border-color: var(--primary); background: rgba(3, 105, 161, 0.05); }
 
   /* ─── COUNTDOWN ─── */
   .countdown-section {
@@ -232,10 +218,11 @@
   }
   .countdown-wrapper {
     background: var(--bg-card);
-    border: 1px solid rgba(212, 160, 90, 0.12);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 36px;
     text-align: center;
+    box-shadow: var(--shadow-card);
   }
   .countdown-label { font-size: 14px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
   .countdown-timer {
@@ -284,7 +271,7 @@
   /* ─── PROBLEM SECTION ─── */
   .problem {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .problem h2 {
     font-family: 'Playfair Display', serif;
@@ -301,20 +288,21 @@
   }
   .problem-card {
     background: var(--bg-card);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 28px;
     transition: all 0.3s;
+    box-shadow: var(--shadow-card);
   }
-  .problem-card:hover { border-color: rgba(212, 160, 90, 0.2); transform: translateY(-2px); }
+  .problem-card:hover { border-color: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(3, 105, 161, 0.1); }
   .problem-card .icon { font-size: 28px; margin-bottom: 14px; }
-  .problem-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .problem-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
   .problem-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
   /* ─── WHAT YOU'LL LEARN ─── */
   .learn {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .section-label {
     font-size: 12px;
@@ -323,6 +311,7 @@
     color: var(--primary);
     text-align: center;
     margin-bottom: 12px;
+    font-weight: 600;
   }
   .learn h2 {
     font-family: 'Playfair Display', serif;
@@ -347,19 +336,20 @@
   }
   .learn-card {
     background: var(--bg-card);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 32px;
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
+    box-shadow: var(--shadow-card);
   }
-  .learn-card:hover { border-color: rgba(212, 160, 90, 0.25); box-shadow: var(--shadow-glow); }
+  .learn-card:hover { border-color: var(--primary-light); box-shadow: 0 8px 32px rgba(3, 105, 161, 0.12); }
   .learn-card .number {
     font-family: 'Playfair Display', serif;
     font-size: 48px;
     font-weight: 800;
-    color: rgba(212, 160, 90, 0.08);
+    color: rgba(3, 105, 161, 0.07);
     position: absolute;
     top: 16px;
     right: 20px;
@@ -370,10 +360,11 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--primary);
-    background: rgba(212, 160, 90, 0.1);
+    background: rgba(3, 105, 161, 0.08);
     padding: 4px 12px;
     border-radius: 100px;
     margin-bottom: 14px;
+    font-weight: 600;
   }
   .learn-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
   .learn-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
@@ -382,7 +373,7 @@
   /* ─── BEFORE / AFTER ─── */
   .transform {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .transform h2 {
     font-family: 'Playfair Display', serif;
@@ -409,10 +400,11 @@
     margin-bottom: 12px;
     font-size: 14px;
     line-height: 1.5;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
-  .before .transform-item { color: var(--text-muted); border-left: 3px solid rgba(239, 68, 68, 0.4); }
-  .after .transform-item { color: var(--text-main); border-left: 3px solid rgba(74, 222, 128, 0.5); }
+  .before .transform-item { color: var(--text-muted); border-left: 3px solid rgba(220, 38, 38, 0.4); }
+  .after .transform-item { color: var(--text-main); border-left: 3px solid rgba(22, 163, 74, 0.5); }
   .transform-arrow {
     display: flex;
     align-items: center;
@@ -425,7 +417,7 @@
   /* ─── DEMO PREVIEW ─── */
   .demo {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .demo h2 {
     font-family: 'Playfair Display', serif;
@@ -441,19 +433,20 @@
     margin-bottom: 40px;
   }
   .demo-terminal {
-    background: #0A0A0A;
-    border: 1px solid rgba(255,255,255,0.08);
+    background: #0F172A;
+    border: 1px solid rgba(51, 65, 85, 0.5);
     border-radius: var(--radius);
     max-width: 700px;
     margin: 0 auto;
     overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   }
   .demo-terminal-bar {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 14px 18px;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.04);
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
   .demo-terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -465,17 +458,18 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     line-height: 1.8;
+    color: #E2E8F0;
   }
-  .demo-terminal-body .prompt { color: var(--primary); }
-  .demo-terminal-body .bad { color: var(--text-dim); }
-  .demo-terminal-body .good { color: var(--accent-green); }
-  .demo-terminal-body .comment { color: var(--text-dim); font-style: italic; }
-  .demo-terminal-body .result { color: var(--text-main); margin-left: 16px; }
+  .demo-terminal-body .prompt { color: #38BDF8; }
+  .demo-terminal-body .bad { color: #64748B; }
+  .demo-terminal-body .good { color: #4ADE80; }
+  .demo-terminal-body .comment { color: #64748B; font-style: italic; }
+  .demo-terminal-body .result { color: #E2E8F0; margin-left: 16px; }
 
   /* ─── PRICING ─── */
   .pricing {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .pricing h2 {
     font-family: 'Playfair Display', serif;
@@ -499,16 +493,17 @@
   }
   .pricing-card {
     background: var(--bg-card);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 36px;
     text-align: center;
     position: relative;
     transition: all 0.3s;
+    box-shadow: var(--shadow-card);
   }
   .pricing-card.featured {
     border-color: var(--primary);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 8px 40px rgba(3, 105, 161, 0.15);
     transform: scale(1.03);
   }
   .pricing-card.featured::before {
@@ -518,7 +513,7 @@
     left: 50%;
     transform: translateX(-50%);
     background: var(--primary);
-    color: var(--bg-dark);
+    color: #fff;
     font-size: 11px;
     font-weight: 700;
     padding: 5px 16px;
@@ -532,6 +527,7 @@
     font-family: 'Playfair Display', serif;
     font-size: 52px;
     font-weight: 700;
+    color: var(--text-main);
   }
   .pricing-card .price .currency { font-size: 24px; vertical-align: super; }
   .pricing-card .original-price {
@@ -542,7 +538,7 @@
   }
   .pricing-card .save-badge {
     display: inline-block;
-    background: rgba(74, 222, 128, 0.1);
+    background: rgba(22, 163, 74, 0.08);
     color: var(--accent-green);
     font-size: 12px;
     font-weight: 600;
@@ -558,7 +554,7 @@
     padding: 8px 0;
     padding-left: 24px;
     position: relative;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid var(--border);
   }
   .pricing-card ul li::before {
     content: '✓';
@@ -574,8 +570,8 @@
     padding: 48px 0;
   }
   .guarantee-box {
-    background: rgba(212, 160, 90, 0.05);
-    border: 1px solid rgba(212, 160, 90, 0.15);
+    background: rgba(3, 105, 161, 0.04);
+    border: 1px solid rgba(3, 105, 161, 0.12);
     border-radius: var(--radius-lg);
     padding: 36px;
     text-align: center;
@@ -589,7 +585,7 @@
   /* ─── INSTRUCTOR ─── */
   .instructor {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .instructor h2 {
     font-family: 'Playfair Display', serif;
@@ -600,7 +596,7 @@
   }
   .instructor-card {
     background: var(--bg-card);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 40px;
     display: flex;
@@ -608,29 +604,30 @@
     align-items: center;
     max-width: 700px;
     margin: 0 auto;
+    box-shadow: var(--shadow-card);
   }
   .instructor-avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: var(--gradient-gold);
+    background: var(--gradient-blue);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Playfair Display', serif;
     font-size: 36px;
     font-weight: 700;
-    color: var(--bg-dark);
+    color: #fff;
     flex-shrink: 0;
   }
   .instructor-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-  .instructor-info .role { font-size: 14px; color: var(--primary); margin-bottom: 12px; }
+  .instructor-info .role { font-size: 14px; color: var(--primary); margin-bottom: 12px; font-weight: 500; }
   .instructor-info p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
   /* ─── TESTIMONIALS ─── */
   .testimonials {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .testimonials h2 {
     font-family: 'Playfair Display', serif;
@@ -646,26 +643,27 @@
   }
   .testimonial-card {
     background: var(--bg-card);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 28px;
+    box-shadow: var(--shadow-card);
   }
-  .testimonial-card .stars { color: var(--primary); font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+  .testimonial-card .stars { color: #F59E0B; font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
   .testimonial-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; font-style: italic; margin-bottom: 16px; }
   .testimonial-card .author { display: flex; align-items: center; gap: 10px; }
   .testimonial-card .author-avatar {
     width: 36px; height: 36px; border-radius: 50%;
-    background: rgba(212, 160, 90, 0.15);
+    background: rgba(3, 105, 161, 0.1);
     display: flex; align-items: center; justify-content: center;
     font-size: 14px; font-weight: 600; color: var(--primary);
   }
-  .testimonial-card .author-name { font-size: 14px; font-weight: 600; }
+  .testimonial-card .author-name { font-size: 14px; font-weight: 600; color: var(--text-main); }
   .testimonial-card .author-role { font-size: 12px; color: var(--text-dim); }
 
   /* ─── FAQ ─── */
   .faq {
     padding: 80px 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
   }
   .faq h2 {
     font-family: 'Playfair Display', serif;
@@ -676,7 +674,7 @@
   }
   .faq-list { max-width: 700px; margin: 0 auto; }
   .faq-item {
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid var(--border);
   }
   .faq-question {
     width: 100%;
@@ -714,6 +712,7 @@
     padding: 80px 0;
     text-align: center;
     position: relative;
+    background: linear-gradient(180deg, var(--bg-main) 0%, #E0F2FE 100%);
   }
   .final-cta::before {
     content: '';
@@ -723,7 +722,7 @@
     transform: translateX(-50%);
     width: 600px;
     height: 400px;
-    background: radial-gradient(circle, rgba(212, 160, 90, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
   .final-cta h2 {
@@ -745,8 +744,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: rgba(220, 38, 38, 0.06);
+    border: 1px solid rgba(220, 38, 38, 0.15);
     color: var(--accent-red);
     font-size: 13px;
     font-weight: 600;
@@ -758,9 +757,10 @@
 
   /* ─── FOOTER ─── */
   footer {
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--border);
     padding: 40px 0;
     text-align: center;
+    background: #E0F2FE;
   }
   footer p { font-size: 13px; color: var(--text-dim); }
   footer a { color: var(--primary); text-decoration: none; }
@@ -802,7 +802,7 @@
       <span class="dot"></span>
       Live Workshop · Limited Seats
     </div>
-    <h1>Master <span class="gold-text">Claude AI</span><br>in 90 Minutes</h1>
+    <h1>Master <span class="blue-text">Claude AI</span><br>in 90 Minutes</h1>
     <p class="hero-sub">Stop copy-pasting basic prompts. Learn to make Claude your smartest colleague — write faster, analyse data, build tools, and automate your workflow. Hands-on. Live. Practical.</p>
     <div class="hero-meta">
       <div class="hero-meta-item">
@@ -858,7 +858,7 @@
 <section class="problem">
   <div class="container">
     <div class="section-label animate-in">The Problem</div>
-    <h2 class="animate-in">Most People Use AI Like a <span class="gold-text">Fancy Google Search</span></h2>
+    <h2 class="animate-in">Most People Use AI Like a <span class="blue-text">Fancy Google Search</span></h2>
     <div class="problem-grid">
       <div class="problem-card animate-in">
         <div class="icon">😤</div>
@@ -883,7 +883,7 @@
 <section class="learn" id="learn">
   <div class="container">
     <div class="section-label animate-in">The Curriculum</div>
-    <h2 class="animate-in">What You'll Master in <span class="gold-text">90 Minutes</span></h2>
+    <h2 class="animate-in">What You'll Master in <span class="blue-text">90 Minutes</span></h2>
     <p class="learn-subtitle animate-in">Four power-packed modules. All live. All hands-on. Zero fluff.</p>
     <div class="learn-grid">
       <div class="learn-card animate-in">
@@ -936,7 +936,7 @@
 <section class="transform">
   <div class="container">
     <div class="section-label animate-in">The Transformation</div>
-    <h2 class="animate-in">Before vs After <span class="gold-text">This Workshop</span></h2>
+    <h2 class="animate-in">Before vs After <span class="blue-text">This Workshop</span></h2>
     <div class="transform-grid animate-in">
       <div class="transform-col before">
         <h3>❌ Before</h3>
@@ -963,7 +963,7 @@
 <section class="demo">
   <div class="container">
     <div class="section-label animate-in">Sneak Peek</div>
-    <h2 class="animate-in">This Is What You'll See <span class="gold-text">Live</span></h2>
+    <h2 class="animate-in">This Is What You'll See <span class="blue-text">Live</span></h2>
     <p class="demo-subtitle animate-in">A 30-second taste of the "Wow Demo" that opens the workshop</p>
     <div class="demo-terminal animate-in">
       <div class="demo-terminal-bar">
@@ -990,14 +990,14 @@
 <section class="pricing" id="pricing">
   <div class="container">
     <div class="section-label animate-in">Investment</div>
-    <h2 class="animate-in">Choose Your <span class="gold-text">Ticket</span></h2>
+    <h2 class="animate-in">Choose Your <span class="blue-text">Ticket</span></h2>
     <p class="pricing-subtitle animate-in">100% money-back guarantee if you don't find it valuable.</p>
     <div class="pricing-cards">
       <!-- EARLY BIRD -->
       <div class="pricing-card featured animate-in">
         <h3>Early Bird</h3>
         <div class="tagline">First 20 registrants only</div>
-        <div class="price gold-text"><span class="currency">₹</span>299</div>
+        <div class="price blue-text"><span class="currency">₹</span>299</div>
         <div class="original-price">₹499</div>
         <div class="save-badge">Save 40%</div>
         <ul>
@@ -1016,7 +1016,7 @@
         <div class="tagline">Standard admission</div>
         <div class="price"><span class="currency">₹</span>499</div>
         <div class="original-price" style="visibility:hidden">.</div>
-        <div class="save-badge" style="background:rgba(96,165,250,0.1);color:var(--accent-blue);">Best value</div>
+        <div class="save-badge" style="background:rgba(37,99,235,0.08);color:var(--accent-blue);">Best value</div>
         <ul>
           <li>90-minute live workshop</li>
           <li>50+ prompt template pack</li>
@@ -1025,7 +1025,7 @@
           <li>Certificate of completion</li>
           <li>WhatsApp community access</li>
         </ul>
-        <a href="https://rzp.io/rzp/5Klyrn8" target="_blank" class="btn-primary" style="background:rgba(255,255,255,0.1);color:var(--text-main);">Register at ₹499 →</a>
+        <a href="https://rzp.io/rzp/5Klyrn8" target="_blank" class="btn-primary" style="background:rgba(3,105,161,0.08);color:var(--primary);">Register at ₹499 →</a>
       </div>
       <!-- GROUP -->
       <div class="pricing-card animate-in">
@@ -1042,7 +1042,7 @@
           <li>Bonus: Team workflow guide</li>
           <li>Bulk invoice available</li>
         </ul>
-        <a href="https://rzp.io/rzp/RT0e4VM7" target="_blank" class="btn-primary" style="background:rgba(255,255,255,0.1);color:var(--text-main);">Get Team Pack →</a>
+        <a href="https://rzp.io/rzp/RT0e4VM7" target="_blank" class="btn-primary" style="background:rgba(3,105,161,0.08);color:var(--primary);">Get Team Pack →</a>
       </div>
     </div>
   </div>
@@ -1063,11 +1063,11 @@
 <section class="instructor animate-in">
   <div class="container">
     <div class="section-label">Your Instructor</div>
-    <h2>Learn From Someone Who <span class="gold-text">Uses Claude Daily</span></h2>
+    <h2>Learn From Someone Who <span class="blue-text">Uses Claude Daily</span></h2>
     <div class="instructor-card">
-      <div class="instructor-avatar">YN</div>
+      <div class="instructor-avatar">VY</div>
       <div class="instructor-info">
-        <h3>[Vinod Yadav]</h3>
+        <h3>Vinod Yadav</h3>
         <div class="role">AI Productivity Coach & Claude Power User</div>
         <p>Trained 500+ professionals on AI tools. Uses Claude daily for writing, analysis, coding, and business strategy. Built multiple AI-powered workflows that save 10+ hours per week. Passionate about making AI accessible to everyone — not just techies.</p>
       </div>
@@ -1079,7 +1079,7 @@
 <section class="testimonials">
   <div class="container">
     <div class="section-label animate-in">What People Say</div>
-    <h2 class="animate-in">From Past <span class="gold-text">Attendees</span></h2>
+    <h2 class="animate-in">From Past <span class="blue-text">Attendees</span></h2>
     <div class="testimonial-grid">
       <div class="testimonial-card animate-in">
         <div class="stars">★ ★ ★ ★ ★</div>
@@ -1113,7 +1113,7 @@
 <section class="faq">
   <div class="container">
     <div class="section-label animate-in">Questions</div>
-    <h2 class="animate-in">Frequently <span class="gold-text">Asked</span></h2>
+    <h2 class="animate-in">Frequently <span class="blue-text">Asked</span></h2>
     <div class="faq-list">
       <div class="faq-item animate-in">
         <button class="faq-question">Do I need any technical background?<span class="icon">+</span></button>
@@ -1150,7 +1150,7 @@
       <span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-red);"></span>
       Only <span id="final-spots">17</span> early bird spots remaining
     </div>
-    <h2 class="animate-in">Stop Underusing <span class="gold-text">the Most Powerful AI</span> on the Planet</h2>
+    <h2 class="animate-in">Stop Underusing <span class="blue-text">the Most Powerful AI</span> on the Planet</h2>
     <p class="animate-in">90 minutes. ₹299. A skill that pays for itself in one day.</p>
     <a href="https://rzp.io/rzp/oYMqM6s" target="_blank" class="btn-primary animate-in" style="font-size:18px;padding:18px 44px;">Reserve My Seat Now →</a>
     <p style="font-size:13px;color:var(--text-dim);margin-top:16px;" class="animate-in">🔒 Secure payment · Instant confirmation · 100% money-back guarantee</p>
@@ -1213,11 +1213,11 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
-  // ─── SMOOTH SCROLL (only for internal # links, not external URLs) ───
+  // ─── SMOOTH SCROLL (only for internal # links) ───
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-      if (href === '#') return; // skip bare # links
+      if (href === '#') return;
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
